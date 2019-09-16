@@ -1,13 +1,11 @@
 // Hangman TEMPLATE
 // Homework Assignment 2 2ip90 
 /**
- * Gijs Eltink and Massimo Weijtens
- * 1452924 and 1441787
- * group 100
+ * Hangman Game
+ * Gijs Eltink
  * 12/09/2019
  */
 
-import java.util.Random;
 import java.util.Scanner;
 
 class Hangman {
@@ -30,7 +28,9 @@ class Hangman {
     char[] secretArray; // will be used to be able to replace letters in string secretb
     progressWord = secret.toCharArray();
     char [] testWord = secret.toCharArray();
-
+    String letters = "              ";
+    char [] lettersChar = letters.toCharArray();
+    int r = 0;
 
     // Changing the progressword to underscores
     for (int n = 0; n < wordLength; n++) {
@@ -54,9 +54,24 @@ class Hangman {
           }
         }
       } else {
-        i++; // adds 1 to the "false" counter if the input was not in secretb
-        System.out.println("That's wrong! you made "+i+" mistakes out of 10 so far");
+        int letterlength = letters.length();
+        i++;
+        int z;
+        for (z = 0; z < (letterlength-1); z++) {
+          if (letters.charAt(z) == x) {
+            break;
+          }
+          if (z == 12) {
+            r++;
+            lettersChar[r] = x;
+          }
+        }
+        letters = String.valueOf(lettersChar);
+        lettersChar = letters.toCharArray();
+        System.out.println("That's wrong! mistake "+i+"/10");
+        System.out.println("You have tried the letters:"+letters);
       }
+
       // following 4 lines print out the complete word and break loop if progressword = guessword
       progressWordString = String.valueOf(progressWord);
       if (progressWordString.equals(secret)) {
